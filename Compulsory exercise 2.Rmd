@@ -1,6 +1,6 @@
 ---
 title: "Compulsory exercise 1"
-author: "Ellisiv Steen, Johanne Skogvang, Helene Behrens"
+author: "Ellisiv Steen, Johanne Skogvang"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: pdf_document
 ---
