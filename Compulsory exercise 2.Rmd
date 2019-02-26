@@ -2,6 +2,19 @@
 title: "Compulsory exercise 2"
 author: "Ellisiv Steen, Johanne Skogvang"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
-output: pdf_document
+output: html_document
 ---
 
+### Problem 1
+
+**a)**  dette skal bli en liste  
+*  flifgj  
+*  søfj  
+*  wlijf  
+*  dfij  
+
+lista er slutt
+
+**b)**
+
+### Problem 2
