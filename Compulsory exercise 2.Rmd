@@ -29,7 +29,9 @@ lista er slutt
 
 **b)** A good model should explain the variance in the observations well, it should have small residuals, the residuals should be just random noise (that is normally distributed) and none of the covariates should be linearly dependent of the others.  
 
-From figure 1 the covariates dkudh
+In figure 1 pairs of covariates for each observation is plotted against each other. Here we can observe independecy of the covariates. The first thing we observe is that $ldl$ and $tc$ look very dependent and some of the others look slightly dependent on others. 
+
+In figure 2 we have a Q-Q plot and and a plot of the t-studentized residuals against the fitted values of the corresponding observations. We want the residuals to be scattered normally distributed around residuals = 0 in the residual plot and want the points in the Q-Q plot to follow the red line exactly. We first observe that the Q-Q plot looks good. By further inspection of the residual plot we see that the model fits the points better for low fitted values, and that there is big variations for higher fitted values. We also see that the points are relatively evenly scattered and thus for a 
 
 
 **c)** 
