@@ -7,11 +7,23 @@ output: html_document
 
 ### Problem 1
 
-**a)**  dette skal bli en liste  
-*  flifgj  
+**a)**  dette skal bli en liste   
+**1.**
+
+*  The estimates are the entries of \beta
+
 *  søfj  
+
 *  wlijf  
+
 *  dfij  
+
+
+```{r, echo=FALSE, eval=FALSE}
+
+
+
+```
 
 lista er slutt
 
