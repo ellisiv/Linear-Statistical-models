@@ -15,6 +15,10 @@ output: html_document
 
 lista er slutt
 
-**b)**
+**b)** A good model should explain the variance in the observations well, it should have small residuals, the residuals should be just random noise (that is normally distributed) and none of the covariates should be linearly dependent of the others.  
 
+From figure 1 the covariates dkudh
+
+
+**c)** 
 ### Problem 2
