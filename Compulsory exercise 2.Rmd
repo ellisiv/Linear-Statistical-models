@@ -37,8 +37,6 @@ The method of best subset selection is a way of reducing a model in a suitable w
 
 One of the criteria os the adjusted $R^2 = R^{2}_{\text{adj}} = 1 - \frac{\text{SSE}/(n-p)}{\text{SST}/(n-1)}$, where SSE is the error sum of squares, SST is the total variation around the mean value, n is the number of observations and p is the number of covariates in the model. The $R^{2}_{\text{adj}}$ shows the amount of variation explained by the model as the $R^2$ does, at the same time as it penalizes models with large values of $p$. The best choice explains a large amount of the variance and has a low value of p, which means a large value of $R^{2}_{\text{adj}}$.  
 
-The Bayesian information criterion (BIC) is another approach of choosing the best subset. $\text{BIC} = \frac{\text{SSE}/n}{\hat{\sigma^2}}+ln(n)\frac{p}{n}$, where again SSE is the error sum of squares, n is the number of observations, p is the number of covariates and $\hat{\sigma^2}$ is the estimated variance 
-
-R2adj, BIC
+The Bayesian information criterion (BIC) is another approach of choosing the best subset. $\text{BIC} = \frac{\text{SSE}/n}{\hat{\sigma^2}}+ln(n)\frac{p}{n}$, where again SSE is the error sum of squares, n is the number of observations, p is the number of covariates and $\hat{\sigma^2}$ is the estimated variance for the model. The value of BIC grows with large SSE and large p, which means that we want to minimize the function to find best subset of covariates. The Bayesian information criterion penlaizes the number of covariates $p$ more than the $R^2_{\text{adj}}$ because the term $\frac{\ln(n)}{n}$ is a very large coefficient.
 
 ### Problem 2
