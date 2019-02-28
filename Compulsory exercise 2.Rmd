@@ -31,5 +31,14 @@ In figure 1 pairs of covariates for each observation is plotted against each oth
 In figure 2 we have a Q-Q plot and and a plot of the t-studentized residuals against the fitted values of the corresponding observations. We want the residuals to be scattered normally distributed around residuals = 0 in the residual plot and want the points in the Q-Q plot to follow the red line exactly. We first observe that the Q-Q plot looks good. By further inspection of the residual plot we see that the model fits the points better for low fitted values, and that there is big variations for higher fitted values. We also see that the points are relatively evenly scattered and thus for a 
 
 
-**c)** 
+**c)** When we fit a model we does not really know how and if the covariates really affect the response variable or of it is just random noise. A model can by accident emphasize random noise and in therby predict on the wrong premises. In those cases the model would predict more accurately when such covariates are discarded. Also if the covariates are dependent the preformance could be equally good if the remaining covariates compansate for the discarded covariate. This reduced model would in that case be better because of lower variance.
+
+The method of best subset selection is a way of reducing a model in a suitable way. The method tries all combinations of all numbers of covariates and fits a model based on those covariates. Afterwards it chooses the best model based on some criterion which emphasizes small residuals and few covariates.  
+
+One of the criteria os the adjusted $R^2 = R^{2}_{\text{adj}} = 1 - \frac{\text{SSE}/(n-p)}{\text{SST}/(n-1)}$, where SSE is the error sum of squares, SST is the total variation around the mean value, n is the number of observations and p is the number of covariates in the model. The $R^{2}_{\text{adj}}$ shows the amount of variation explained by the model as the $R^2$ does, at the same time as it penalizes models with large values of $p$. The best choice explains a large amount of the variance and has a low value of p, which means a large value of $R^{2}_{\text{adj}}$.  
+
+The Bayesian information criterion (BIC) is another approach of choosing the best subset. $\text{BIC} = \frac{\text{SSE}/n}{\hat{\sigma^2}}+ln(n)\frac{p}{n}$, where again SSE is the error sum of squares, n is the number of observations, p is the number of covariates and $\hat{\sigma^2}$ is the estimated variance 
+
+R2adj, BIC
+
 ### Problem 2
