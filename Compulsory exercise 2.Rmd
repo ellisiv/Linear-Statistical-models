@@ -13,7 +13,7 @@ output: html_document
 
 The estimates are the entries of $\hat{\beta}$.  $\hat{\beta}$ is $$ \hat{\beta} = (X^TX)^{-1}X^TY$$. Where $X$ is the desing matrix which contains observations for the covarites, and $Y$ i the response vector.  
 
-The standard error is the sqare root of the variance of $\hat{\beta}$. Hence, $$\hat{SD}(\hat{\beta}) = Var(\hat{\beta}) = Var((X^TX)^{-1}X^TY) = (X^TX)^{-1}X^T Var(Y) ((X^TX)^{-1}X^T)^T = {\hat{\sigma}}^2 (X^TX)^{-1}(X^TX) (X^TX)^{-1} = {\hat{\sigma}}^2 (X^TX)^{-1} $$
+The standard error is the sqare root of the variance of $\hat{\beta}$. Hence, $$\hat{SD}(\hat{\beta}) = Var(\hat{\beta}) = Var((X^TX)^{-1}X^TY) = (X^TX)^{-1}X^T Var(Y) ((X^TX)^{-1}X^T)^T = {\hat{\sigma}}^2 (X^TX)^{-1}(X^TX) (X^TX)^{-1} = {\hat{\sigma}}^2 (X^TX)^{-1}  $$
 
 
 ```{r, echo=FALSE, eval=FALSE}
