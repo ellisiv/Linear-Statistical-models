@@ -10,10 +10,16 @@ output: html_document
 **a)**
 **1.**
 
+The estimates are the entries of $\hat{\beta}$.  $\hat{\beta}$ is $$ \hat{\beta} = (X^TX)^{-1}X^TY.$$. Where $X$ is the desing matrix which contains observations for the covarites, and $Y$ i the response vector.  
 
-The estimates are the entries of $\hat{\beta}$.  $\hat{\beta}$ is $$ \hat{\beta} = (X^TX)^{-1}X^TY$$. Where $X$ is the desing matrix which contains observations for the covarites, and $Y$ i the response vector.  
+The standard error is the sqare root of the variance of $\hat{\beta}$. Hence, $$\hat{SD}(\hat{\beta}) = Var(\hat{\beta}) = Var((X^TX)^{-1}X^TY) = (X^TX)^{-1}X^T Var(Y) ((X^TX)^{-1}X^T)^T$$
+$$ = {\hat{\sigma}}^2 (X^TX)^{-1}(X^TX) (X^TX)^{-1} = {\hat{\sigma}}^2 (X^TX)^{-1}  $$  
 
-The standard error is the sqare root of the variance of $\hat{\beta}$. Hence, $$\hat{SD}(\hat{\beta}) = Var(\hat{\beta}) = Var((X^TX)^{-1}X^TY) = (X^TX)^{-1}X^T Var(Y) ((X^TX)^{-1}X^T)^T = {\hat{\sigma}}^2 (X^TX)^{-1}(X^TX) (X^TX)^{-1} = {\hat{\sigma}}^2 (X^TX)^{-1}  $$
+The t-value is defined as $$t= \frac{\hat{\beta}_j- \beta_j}{\hat{SD}(\hat{\beta}_j)} $$ when we assume that $ \beta_j = 0$. Thus $$t= \frac{\hat{\beta}_j}{\hat{SD}(\hat{\beta}_j)} .$$  
+
+$Pr(>|t|) $ is the probability that $H_0$ is true. This means the probability that we get the estimate or a more extreme value given that $\beta$ in the exact model is zero, $\beta_j = 0$. If this is the case, the covariate should not affect the model. 
+
+
 
 
 ```{r, echo=FALSE, eval=FALSE}
