@@ -10,22 +10,10 @@ output: html_document
 **a)**
 **1.**
 
-The estimates are the entries of $\hat{\beta}$.  $\hat{\beta}$ is $$ \hat{\beta} = (X^TX)^{-1}X^TY.$$. Where $X$ is the desing matrix which contains observations for the covarites, and $Y$ i the response vector.  
 
-The standard error is the sqare root of the variance of $\hat{\beta}$. Hence, $$\hat{SD}(\hat{\beta}) = Var(\hat{\beta}) = Var((X^TX)^{-1}X^TY) = (X^TX)^{-1}X^T Var(Y) ((X^TX)^{-1}X^T)^T$$
-$$ = {\hat{\sigma}}^2 (X^TX)^{-1}(X^TX) (X^TX)^{-1} = {\hat{\sigma}}^2 (X^TX)^{-1}  $$  
+The estimates are the entries of $\hat{\beta}$.  $\hat{\beta}$ is $$ \hat{\beta} = (X^TX)^{-1}X^TY$$. Where $X$ is the desing matrix which contains observations for the covarites, and $Y$ i the response vector.  
 
-The t-value is defined as $$t= \frac{\hat{\beta}_j- \beta_j}{\hat{SD}(\hat{\beta}_j)} $$ when we assume that $ \beta_j = 0$. Thus $$t= \frac{\hat{\beta}_j}{\hat{SD}(\hat{\beta}_j)} .$$  
-
-$Pr(>|t|) $ is the probability that $H_0$ is true. This means the probability that we get the estimate or a more extreme value given that $\beta$ in the exact model is zero, $\beta_j = 0$. If this is the case, the covariate should not affect the model.   
-
-
-**2**
-After the model is fitted, the intercept is the value one would observe if all of the covariates where zero. If all og the $\beta_j$'s are zero for $j \neq 0 $, then $\beta_0$ is the mean of all the observations. 
-
-
-
-
+The standard error is the sqare root of the variance of $\hat{\beta}$. Hence, $$\hat{SD}(\hat{\beta}) = Var(\hat{\beta}) = Var((X^TX)^{-1}X^TY) = (X^TX)^{-1}X^T Var(Y) ((X^TX)^{-1}X^T)^T = {\hat{\sigma}}^2 (X^TX)^{-1}(X^TX) (X^TX)^{-1} = {\hat{\sigma}}^2 (X^TX)^{-1}  $$
 
 
 ```{r, echo=FALSE, eval=FALSE}
@@ -40,7 +28,9 @@ lista er slutt
 
 In figure 1 pairs of covariates for each observation is plotted against each other. Here we can observe independecy of the covariates. The first thing we observe is that $ldl$ and $tc$ look very dependent and some of the others look slightly dependent on others. For instance we can see a dependence between $tch$ and $hdl$, and $tch$ and $ldl$. This can mean that another good model could discard some of these covariates. We also see that there seem to be little dependece between $age$ and the response variable $prog$ which which means that it is maybe pointless to include it in our model.
 
-In figure 2 we have a Q-Q plot and and a plot of the t-studentized residuals against the fitted values of the corresponding observations. We want the residuals to be scattered normally distributed around residuals = 0 in the residual plot and want the points in the Q-Q plot to follow the red line exactly. We first observe that the Q-Q plot looks good. By further inspection of the residual plot we see that the model fits the points better for low fitted values, and that there is big variations for higher fitted values. We also see that the points are relatively evenly scattered and thus for a 
+In figure 2 we have a Q-Q plot and and a plot of the t-studentized residuals against the fitted values of the corresponding observations. We want the residuals to be scattered normally distributed around residuals = 0 in the residual plot and want the points in the Q-Q plot to follow the red line exactly. We first observe that the Q-Q plot looks good. By further inspection of the residual plot we see that the model fits the points better for low fitted values, and that there is big variations for higher fitted values. We also see that the points are relatively evenly scattered and thus in total the Q-Q plot maybe presents the residuals as being more normally distributed than they actually are. When we also consider that the Anderson-Darling test which gives a relatively good p-value for the normality test we can not discard the assumption that the residuals are normally distributed, but it does not look totally convincing.
+
+The value of the $R^2 = 0.51$ is also not very good, and the reason can be that there are more covariates in the true model that is not considered in our model or/and there is a considerable amount of random noise that makes prediction hard. To conclude this is not an amazing model, the dependencies can be reduced by reducing the number of considered covariates, but it also seem likely that there are some covariates in the true model that is not explained by our model. f
 
 
 **c)** When we fit a model we does not really know how and if the covariates really affect the response variable or of it is just random noise. A model can by accident emphasize random noise and in therby predict on the wrong premises. In those cases the model would predict more accurately when such covariates are discarded. Also if the covariates are dependent the preformance could be equally good if the remaining covariates compansate for the discarded covariate. This reduced model would in that case be better because of lower variance.
