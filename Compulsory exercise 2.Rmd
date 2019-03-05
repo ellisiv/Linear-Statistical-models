@@ -37,7 +37,7 @@ The value of the $R^2 = 0.51$, which is the proportion of variance explained by 
 
 The method of best subset selection is a way of reducing a model in a suitable way. The method tries all combinations of all numbers of covariates and fits a model based on those covariates. Afterwards it chooses the best model based on some criterion which emphasizes small residuals and few covariates.  
 
-One of the criteria os the adjusted $$R^2 = R^{2}_{\text{adj}} = 1 - \frac{\text{SSE}/(n-p)}{\text{SST}/(n-1)},$$ where SSE is the error sum of squares, SST is the total variation around the mean value, n is the number of observations and p is the number of covariates in the model. The $R^{2}_{\text{adj}}$ shows the amount of variation explained by the model as the $R^2$ does, at the same time as it penalizes models with large values of $p$. The best choice explains a large amount of the variance and has a low value of p, which means a large value of $R^{2}_{\text{adj}}$.  
+One of the criteria is the adjusted $$R^2 = R^{2}_{\text{adj}} = 1 - \frac{\text{SSE}/(n-p)}{\text{SST}/(n-1)},$$ where SSE is the error sum of squares, SST is the total variation around the mean value, n is the number of observations and p is the number of covariates in the model. The $R^{2}_{\text{adj}}$ shows the amount of variation explained by the model as the $R^2$ does, at the same time as it penalizes models with large values of $p$. The best choice explains a large amount of the variance and has a low value of p, which means a large value of $R^{2}_{\text{adj}}$.  
 
 The Bayesian information criterion (BIC) is another approach of choosing the best subset. $$\text{BIC} = \frac{\text{SSE}/n}{\hat{\sigma^2}}+ln(n)\frac{p}{n},$$ where again SSE is the error sum of squares, n is the number of observations, p is the number of covariates and $\hat{\sigma^2}$ is the estimated variance for the model. The value of BIC grows with large SSE and large p, which means that we want to minimize the function to find best subset of covariates. The Bayesian information criterion penlaizes the number of covariates $p$ more than the $R^2_{\text{adj}}$ because the term $\frac{\ln(n)}{n}$ is a very large coefficient.
 
@@ -78,7 +78,8 @@ $$\frac{(\text{C}\boldsymbol{\hat{\beta}}-\mathbf{d})^{\text{T}}(\text{C}(\text{
 beta = full$coefficients
 y <- ds$prog
 
-x <- ds[1:11]
+sse<-sum(full$residuals^2)
+x <- ds[1:10]
 n <- length(y)
 x<-cbind(rep(1,n),x)
 names(x)[1] <- 1
@@ -89,20 +90,14 @@ d = cbind(c(0,0,0,0,0))
 
 xinv = solve(t(x)%*%x)
 
-Fstat = (t(cb-d))
+cxcinv = solve(C%*%xinv%*%t(C))
+print(length(cxcinv))
 
+Fstat = (t(cb-d)%*%cxcinv%*%(cb-d)/5)/(sse/(n-5))
+Fstat
+pval <- pf(Fstat, 5, n-5, ncp=T, lower.tail = F, log.p = FALSE)[1]
 
-y<-acidrain$y # responses
-y
-n<-length(y)
-n
-x<-acidrain[,2:8] # design matrix
-x # intercept missing
-x<-cbind(rep(1,n),x)
-x # now with intercept
-names(x)[1] <- 1 # nicer name for intercept
-x<-as.matrix(x)
-x
+cat("The p-value for the hypothesis test for the reduced model: p = ", pval)
 
 ```
 
