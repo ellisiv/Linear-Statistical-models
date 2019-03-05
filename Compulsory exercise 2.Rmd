@@ -96,6 +96,7 @@ print(length(cxcinv))
 Fstat = (t(cb-d)%*%cxcinv%*%(cb-d)/5)/(sse/(n-5))
 Fstat
 pval <- pf(Fstat, 5, n-5, ncp=T, lower.tail = F, log.p = FALSE)[1]
+#pval <- df(Fstat, 5, n-5)
 
 cat("The p-value for the hypothesis test for the reduced model: p = ", pval)
 
@@ -103,3 +104,58 @@ cat("The p-value for the hypothesis test for the reduced model: p = ", pval)
 
 
 ### Problem 2
+
+**a)** 
+```{r, echo=T, eval=T}
+pvalues <- scan("https://www.math.ntnu.no/emner/TMA4267/2018v/pvalues.txt")
+alpha <- 0.05
+i <- which(pvalues < alpha)
+disc <- length(pvalues[i])
+cat("The number of p-values discarded is", disc[1])
+
+```
+
+A false positive finding is a finding where our hypothesis test conclude with reject $H_0$ when it is really true. In our case that means that a $\beta_j = 0$, but we discard it anyway. This is a value we cannot know for sure unless we have the solution as reference. We can although set the significance level cut-off $\alpha_{\text{loc}}$ lower to decrease the chance of type I errors, but then again our test would accept too many $H_0$-hypotheses and be less effective.
+
+**b)** The definition of the familywise error rate, FWER, is the probability of one or more false positive findings, that is, there are more than one type I error. In general the FWER is found as $$\text{FWER} = P(\#\text{T1 error}>0).$$ 
+One can control the FWER rate by adjusting the local cut-off level, that is, if you want to decrease the probability of doing type I errors, decrease $\alpha_{\text{loc}}$. When you do more tests, the probability of making at least one type I error increase, so if we want to keep the FWER stabile we need to adjust the $\alpha_{\text{loc}}$ to the number of tests preformed. So to control the FWER at 0.05 means that depending on the number of tests preformed we want to control the local cut-off level such that the probability of making one type I error stays at 0.05.
+
+We from now denote the disired FWER$=\alpha= 0.05$ as specified in the exercise and $m = 1000$ be the number of tests preformed. One method for FWER control is the Benferroni method which is based on Boole's inequality. Boole's inequality says that the probability of a union of events is smaller than or equal to the sum of the probability of each event. The equality holds when the events are independent. This implies that $\alpha = m\,\alpha_{\text{loc}} \Rightarrow \alpha_{\text{loc}} = \frac{\alpha}{m} = \frac{0.05}{1000} = 5.0\cdot 10^{-5}.$
+
+```{r, echo=T, eval=T}
+
+alpha_ny <- alpha/n 
+i_ny <- which(pvalues < alpha_ny)
+disc_ny <- length(pvalues[i_ny])
+cat("The number of p-values discarded after the cut-off value is adjusted with the Benferroni method is", disc_ny[1])
+
+```
+
+**c)** 
+If we assume the 900 first hypotheses to be true and that the last 100 are false.
+
+```{r, echo=T, eval=T}
+
+t1 = length(which(i <= 900)) 
+t2 = 100 - (disc[1]-t1)
+
+t1_ny = length(which(i_ny <= 900))
+t2_ny = 100 - (disc_ny[1] - t1_ny)
+
+cat("The number of type I errors are", t1, "and type II errors are", t2, "without use of Benferroni method, and number of type I errors are", t1_ny, "and", t2_ny, "for type II errors after using the Benferroni method.")
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
