@@ -9,20 +9,37 @@ output: html_document
 
 **a)**
 **1.**
+The estimates are the entries of $\hat{\beta}$.  $\hat{\beta}$ is $$ \hat{\beta} = (X^TX)^{-1}X^TY,$$ where $X$ is the desing matrix which contains observations for the covarites, and $Y$ i the response vector.  
+
+The standard error is the sqare root of the variance of $\hat{\beta}$. Hence, $$\hat{SD}(\hat{\beta}) = Var(\hat{\beta}) = Var((X^TX)^{-1}X^TY) = (X^TX)^{-1}X^T Var(Y) ((X^TX)^{-1}X^T)^T$$
+$$ = {\hat{\sigma}}^2 (X^TX)^{-1}(X^TX) (X^TX)^{-1} = {\hat{\sigma}}^2 (X^TX)^{-1}  $$  
+
+The t-value is defined as $$t= \frac{\hat{\beta}_j- \beta_j}{\hat{SD}(\hat{\beta}_j)} $$ when we assume that $ \beta_j = 0$. Thus $$t= \frac{\hat{\beta}_j}{\hat{SD}(\hat{\beta}_j)} .$$  
+
+$Pr(>|t|)$ is the probability that $H_0$ is true. This means the probability that we get the estimate or a more extreme value given that $\beta$ in the exact model is zero, $\beta_j = 0$. If this is the case, the covariate should not affect the model.   
 
 
-The estimates are the entries of $\hat{\beta}$.  $\hat{\beta}$ is $$ \hat{\beta} = (X^TX)^{-1}X^TY$$. Where $X$ is the desing matrix which contains observations for the covarites, and $Y$ i the response vector.  
+**2.**
+After the model is fitted, the intercept is the value one would observe if all of the covariates where zero. If all og the $\beta_j$'s are zero for $j \neq 0 $, then $\beta_0$ is the mean of all the observations. 
 
-The standard error is the sqare root of the variance of $\hat{\beta}$. Hence, $$\hat{SD}(\hat{\beta}) = Var(\hat{\beta}) = Var((X^TX)^{-1}X^TY) = (X^TX)^{-1}X^T Var(Y) ((X^TX)^{-1}X^T)^T = {\hat{\sigma}}^2 (X^TX)^{-1}(X^TX) (X^TX)^{-1} = {\hat{\sigma}}^2 (X^TX)^{-1}  $$
+**3.**
+In this model, $\beta_{BMI} = 5.595 $. That means that if all of the other covariates are the same for two pasients, but the BMI differs with one, then the progression for the person with the highest BMI will be $5.595$ higher than for the other person according to the model. 
+**4.**
+sjekk dette!!!! formula altså
+
+The estimated error variance can be found in figure 1 as 'Residual standard error'. Here it is $54.16$ with $431$ degrees of freedom. The formula for the estimated error variance  is something, finn ut dette. 
+
+**5.**
+The covariates that are significant at level 0.05 are intercept, sex, map and ltg.  
+The null- and alternative hypothesis are 
 
 
-```{r, echo=FALSE, eval=FALSE}
+$$H_0: \beta_0 = 0     \ \ \ \ \ \ \ \ \ \ \ \ \ \ \      H_1: \beta_j \neq 0  $$
+
+The assumtions needed for the p-value to be valid are 
 
 
 
-```
-
-lista er slutt
 
 **b)** A good model should explain the variance in the observations well, it should have small residuals, the residuals should be just random noise (that is normally distributed) and none of the covariates should be linearly dependent of the others.  
 
