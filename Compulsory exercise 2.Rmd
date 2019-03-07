@@ -37,6 +37,7 @@ The null- and alternative hypothesis are
 $$H_0: \beta_0 = 0     \ \ \ \ \ \ \ \ \ \ \ \ \ \ \      H_1: \beta_j \neq 0  $$
 
 The assumtions needed for the p-value to be valid are 
+assumtions of linear model, in notes page 23.
 
 
 
@@ -45,8 +46,7 @@ The assumtions needed for the p-value to be valid are
 
 In figure 1 pairs of covariates for each observation is plotted against each other. Here we can observe independecy of the covariates. The first thing we observe is that $ldl$ and $tc$ look very dependent and some of the others look slightly dependent on others. For instance we can see a dependence between $tch$ and $hdl$, and $tch$, $ldl$ and $ltg$. This can mean that another good model could discard some of these covariates. We also see that there seem to be little dependece between $age$ and the response variable $prog$ which which means that it is maybe pointless to include it in our model.
 
-In figure 2 we have a Q-Q plot and and a plot of the t-studentized residuals against the fitted values of the corresponding observations. We want the residuals to be scattered normally distributed around residuals = 0 in the residual plot and want the points in the Q-Q plot to follow the red line exactly. We first observe that the Q-Q plot looks good. By further inspection of the residual plot we see that the model fits the points better for low fitted values, and that there is big variations for higher fitted values. The most important thing is that the residuals look well distributed around zero and there is no obvious pattern in the residuals. There is maybe some wierd behaviour for low fitted values where there looks like it is a pattern for the negative residuals. To conclude on the residuals' distribution looks 
-
+In figure 2 we have a Q-Q plot and and a plot of the t-studentized residuals against the fitted values of the corresponding observations. We want the residuals to be scattered normally distributed around residuals = 0 in the residual plot and want the points in the Q-Q plot to follow the red line exactly. We first observe that the Q-Q plot looks good. By further inspection of the residual plot we see that the model fits the points better for low fitted values, and that there is big variations for higher fitted values. We also see that the points are relatively evenly scattered and thus in total the Q-Q plot maybe presents the residuals as being more normally distributed than they actually are. When we also consider that the Anderson-Darling test which gives a relatively good p-value for the normality test we can not discard the assumption that the residuals are normally distributed, but it does not look totally convincing.
 
 The value of the $R^2 = 0.51$, which is the proportion of variance explained by our model, is also not very good and the reason can be that there are more covariates in the true model that is not considered in our model or/and there is a considerable amount of random noise that makes prediction hard. To conclude this is not an amazing model, the dependencies can be reduced by reducing the number of considered covariates, but it also seem likely that there are some covariates in the true model that is not explained by our model. It is also important to say that the regression is significant, so the model is very clearly useful to some degree. We find the probability that all covariates in the true model is zero in the p-value for the F-statistic. The null hypothesis $H_0: \beta_j = 0,$ for all $j=1,\dots,p$ and $H_1:$ at least one $\beta_j \neq 0$ for $j>0$. In our case this is p-value:$<2.2\cdot 10^{-16}$ which gives is so small that the hypothesis is rejected and thus the regression is significant.
 
@@ -89,7 +89,7 @@ C
 
 Because we know that $\hat{\beta} \sim \mathcal{N}(\boldsymbol{\beta}, \sigma^2(\text{X}^\text{T}\text{X})^{-1})$, $\text{C}\hat{\beta} \sim \mathcal{N}(\text{C}\boldsymbol{\beta}, \sigma^2\text{C}(\text{X}^\text{T}\text{X})^{-1}\text{C}^{\text{T}})$. We then use the Mahalonobis transform to find a standardized normally distributed variable based on $\text{C}\boldsymbol{\hat{\beta}}$. 
 $$(\sigma^2\text{C}(\text{X}^\text{T}\text{X})^{-1}\text{C}^{\text{T}}))^{-\frac{1}{2}}(\text{C}\boldsymbol{\hat{\beta}}-\text{C}\boldsymbol{\beta})\sim \mathcal{N}(\mathbf{0},\, \text{I}),$$ and thus we get a $\chi^2$ distributed variable 
-$$\frac{(\text{C}\boldsymbol{\hat{\beta}}-\mathbf{d})^{\text{T}}(\text{C}(\text{X}^\text{T}\text{X})^{-1}\text{C}^{\text{T}})^{-1}(\text{C}\boldsymbol{\hat{\beta}}-\mathbf{d})}{\sigma^2}\sim \chi^2_{r}$$, where $r$ is the number of covariates that is tested for being equal to zero, that is $r=5$ in our case. Even though the true variance is unknown we know the distribution of $\frac{\text{SSE}}{\sigma^2} \sim \chi^2_{n-p}$. Since we know that $\frac{U_1/d_1}{U_2/d_2}$ is ficher distributed if $U_1, U_2 \sim \chi^2$ and independent we can conclude that $$\frac{(\text{C}\boldsymbol{\hat{\beta}}-\mathbf{d})^{\text{T}}(\text{C}(\text{X}^\text{T}\text{X})^{-1}\text{C}^{\text{T}})^{-1}(\text{C}\boldsymbol{\hat{\beta}}-\mathbf{d})/(\sigma^2 r)}{\text{SSE}/(\sigma^2(n-p))} = \frac{(\text{C}\boldsymbol{\hat{\beta}}-\mathbf{d})^{\text{T}}(\text{C}(\text{X}^\text{T}\text{X})^{-1}\text{C}^{\text{T}})^{-1}(\text{C}\boldsymbol{\hat{\beta}}-\mathbf{d})/r}{\text{SSE}/(n-p)} \sim \mathcal{F}_{r, n-p}$$ because SSE is independent of $\boldsymbol{\hat{\beta}}$. We reject $H_0$ and when the value of F is large.
+$$\frac{(\text{C}\boldsymbol{\hat{\beta}}-\mathbf{d})^{\text{T}}(\text{C}(\text{X}^\text{T}\text{X})^{-1}\text{C}^{\text{T}})^{-1}(\text{C}\boldsymbol{\hat{\beta}}-\mathbf{d})}{\sigma^2}\sim \chi^2_{r}$$, where $r$ is the number of covariates that is tested for being equal to zero, that is $r=5$ in our case. Even though the true variance is unknown we know the distribution of $\frac{\text{SSE}}{\sigma^2} \sim \chi^2_{n-p}$. Since we know that $\frac{U_1/d_1}{U_2/d_2}$ is ficher distributed if $U_1, U_2 \sim \chi^2$ and independent we can conclude that $$\frac{(\text{C}\boldsymbol{\hat{\beta}}-\mathbf{d})^{\text{T}}(\text{C}(\text{X}^\text{T}\text{X})^{-1}\text{C}^{\text{T}})^{-1}(\text{C}\boldsymbol{\hat{\beta}}-\mathbf{d})/(\sigma^2 r)}{\text{SSE}/(\sigma^2(n-p))} = \frac{(\text{C}\boldsymbol{\hat{\beta}}-\mathbf{d})^{\text{T}}(\text{C}(\text{X}^\text{T}\text{X})^{-1}\text{C}^{\text{T}})^{-1}(\text{C}\boldsymbol{\hat{\beta}}-\mathbf{d})/r}{\text{SSE}/(n-p)} \sim \mathcal{F}_{r, n-p}$$ because SSE is independent of $\boldsymbol{\hat{\beta}}$. We reject $H_0$ and when 
 
 ```{r, echo=T, eval=T}
 
@@ -113,23 +113,19 @@ print(length(cxcinv))
 
 Fstat = (t(cb-d)%*%cxcinv%*%(cb-d)/5)/(sse/(n-5))
 Fstat
-pval <- pf(Fstat, 5, n-5, ncp=T, lower.tail = F)[1]
-
-throw = FALSE
-
-  
+pval <- pf(Fstat, 5, n-5, ncp=T, lower.tail = F, log.p = FALSE)[1]
+#pval <- df(Fstat, 5, n-5)
 
 cat("The p-value for the hypothesis test for the reduced model: p = ", pval)
 
 ```
-We get p > 0.05 and thus we do not reject $H_0$
+
 
 ### Problem 2
 
 **a)** 
 ```{r, echo=T, eval=T}
 pvalues <- scan("https://www.math.ntnu.no/emner/TMA4267/2018v/pvalues.txt")
-l = length(pvalues)
 alpha <- 0.05
 i <- which(pvalues < alpha)
 disc <- length(pvalues[i])
@@ -146,7 +142,7 @@ We from now denote the disired FWER$=\alpha= 0.05$ as specified in the exercise 
 
 ```{r, echo=T, eval=T}
 
-alpha_ny <- alpha/l
+alpha_ny <- alpha/n 
 i_ny <- which(pvalues < alpha_ny)
 disc_ny <- length(pvalues[i_ny])
 cat("The number of p-values discarded after the cut-off value is adjusted with the Benferroni method is", disc_ny[1])
