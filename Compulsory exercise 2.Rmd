@@ -36,10 +36,7 @@ The null- and alternative hypothesis are
 
 $$H_0: \beta_0 = 0     \ \ \ \ \ \ \ \ \ \ \ \ \ \ \      H_1: \beta_j \neq 0  $$
 
-The assumtions needed for the p-value to be valid are 
-assumtions of linear model, in notes page 23.
-
-
+The p-value is valid when $P(p(\mathbf{Y})\leq\alpha)\leq\alpha$ for all $\alpha$, $0\leq \alpha \leq 1$, and $H_0$ is true. $\alpha$ is the chosen significant level and **Y** is the responce vector, called prog in this example. Clearly, also the assumtions for a linear model are assumtiona for the p-value to be valid here. 
 
 
 **b)** A good model should explain the variance in the observations well, it should have small residuals, the residuals should be just random noise (that is normally distributed) and none of the covariates should be linearly dependent of the others.  
