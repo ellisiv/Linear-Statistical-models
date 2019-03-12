@@ -9,21 +9,21 @@ output: html_document
 
 **a)**
 **1.**
-The estimates are the entries of $\hat{\beta}$.  $\hat{\beta}$ is $$ \hat{\beta} = (X^TX)^{-1}X^TY,$$ where $X$ is the desing matrix which contains observations for the covarites, and $Y$ i the response vector.  
+The estimates for the coefficients of the covariates are the entries of $\hat{\beta}$.  $\hat{\beta}$ is $$ \hat{\beta} = (X^TX)^{-1}X^TY,$$ where $X$ is the design matrix which contains observations for the covarites, and $Y$ i the response vector.  
 
-The standard error is the sqare root of the variance of $\hat{\beta}$. Hence, $$\hat{SD}(\hat{\beta}) = Var(\hat{\beta}) = Var((X^TX)^{-1}X^TY) = (X^TX)^{-1}X^T Var(Y) ((X^TX)^{-1}X^T)^T$$
+The standard error is the variance of $\hat{\beta}$. Hence, $$\hat{SD}(\hat{\beta}) = Var(\hat{\beta}) = Var((X^TX)^{-1}X^TY) = (X^TX)^{-1}X^T Var(Y) ((X^TX)^{-1}X^T)^T$$
 $$ = {\hat{\sigma}}^2 (X^TX)^{-1}(X^TX) (X^TX)^{-1} = {\hat{\sigma}}^2 (X^TX)^{-1}$$  
 
 The t-value is defined as $$t= \frac{\hat{\beta}_j- \beta_j}{\hat{SD}(\hat{\beta}_j)} $$ when we assume that $\beta_j=0$. Thus $$t= \frac{\hat{\beta}_j}{\hat{SD}(\hat{\beta}_j)}.$$  
 
-$Pr(>|t|)$ is the probability that $H_0$ is true. This means the probability that we get the estimate or a more extreme value given that $\beta$ in the exact model is zero, $\beta_j=0$. If this is the case, the covariate should not affect the model.   
-
+$Pr(>|t|)$ is the probability that $H_0$ is true. This means the probability that we get the estimate or a more extreme value given a model with only intercept.
 
 **2.**
 After the model is fitted, the intercept is the value one would observe if all of the covariates where zero. If all of the $\beta_j$'s are zero for $j\neq0$, then $\beta_0$ is the mean of all the observations. 
 
 **3.**
-In this model, $\beta_{BMI}=5.595$. That means that if all of the other covariates are the same for two pasients, but the BMI differs with one, then the progression for the person with the highest BMI will be $5.595$ higher than for the other person according to the model. 
+In this model, $\beta_{BMI}=5.595$. That means that if all of the other covariates are the same for two pasients, but the BMI differs with one, then the progression for the person with the highest BMI will be $5.595$ higher than for the other person according to the model.   
+
 **4.**
 sjekk dette!!!! formula altså
 
@@ -34,31 +34,31 @@ The covariates that are significant at level 0.05 are intercept, sex, map and lt
 The null- and alternative hypothesis are 
 
 
-$$H_0: \beta_0 = 0     \ \ \ \ \ \ \ \ \ \ \ \ \ \ \      H_1: \beta_j \neq 0  $$
+$$H_0: \beta_j = 0     \ \ \ \ \ \ \ \ \ \ \ \ \ \ \      H_1: \beta_j \neq 0 \ \ \ \ \ \ \ \  j=1 \dots p $$ where p is the number of covariates. 
 
-The p-value is valid when $P(p(\mathbf{Y})\leq\alpha)\leq\alpha$ for all $\alpha$, $0\leq \alpha \leq 1$, and $H_0$ is true. $\alpha$ is the chosen significant level and **Y** is the responce vector, called prog in this example. Clearly, also the assumtions for a linear model are assumtiona for the p-value to be valid here. 
+The p-value is valid when $P(p(\mathbf{Y})\leq\alpha)\leq\alpha$ for all $\alpha$, $0\leq \alpha \leq 1$, and $H_0$ is true. $\alpha$ is the chosen significance level and **Y** is the responce vector, called prog in our case. Clearly, also the assumtions for a linear model are assumtions needed for the p-value to be valid.  
 
 
 **b)** A good model should explain the variance in the observations well, it should have small residuals, the residuals should be just random noise (that is normally distributed) and none of the covariates should be linearly dependent of the others.  
 
-In figure 1 pairs of covariates for each observation is plotted against each other. Here we can observe independecy of the covariates. The first thing we observe is that $ldl$ and $tc$ look very dependent and some of the others look slightly dependent on others. For instance we can see a dependence between $tch$ and $hdl$, and $tch$, $ldl$ and $ltg$. This can mean that another good model could discard some of these covariates. We also see that there seem to be little dependece between $age$ and the response variable $prog$ which which means that it is maybe pointless to include it in our model.
+In figure 1 pairs of covariates for each observation is plotted against each other. Here we can observe independecy of the covariates. The first thing we observe is that $ldl$ and $tc$ look very dependent and some of the others look slightly dependent on others. For instance we can see a dependence between $tch$ and $hdl$, and $tch$, $ldl$ and $ltg$. This can mean that another good model could discard some of these covariates. We also see that there seem to be little dependece between $age$ and the response variable $prog$ which means that it is maybe pointless to include $age$ in our model.
 
 In figure 2 we have a Q-Q plot and and a plot of the t-studentized residuals against the fitted values of the corresponding observations. We want the residuals to be scattered normally distributed around residuals = 0 in the residual plot and want the points in the Q-Q plot to follow the red line exactly. We first observe that the Q-Q plot looks good. By further inspection of the residual plot we see that the model fits the points better for low fitted values, and that there is big variations for higher fitted values. We also see that the points are relatively evenly scattered and thus in total the Q-Q plot maybe presents the residuals as being more normally distributed than they actually are. When we also consider that the Anderson-Darling test which gives a relatively good p-value for the normality test we can not discard the assumption that the residuals are normally distributed, but it does not look totally convincing.
 
-The value of the $R^2 = 0.51$, which is the proportion of variance explained by our model, is also not very good and the reason can be that there are more covariates in the true model that is not considered in our model or/and there is a considerable amount of random noise that makes prediction hard. To conclude this is not an amazing model, the dependencies can be reduced by reducing the number of considered covariates, but it also seem likely that there are some covariates in the true model that is not explained by our model. It is also important to say that the regression is significant, so the model is very clearly useful to some degree. We find the probability that all covariates in the true model is zero in the p-value for the F-statistic. The null hypothesis $H_0: \beta_j = 0,$ for all $j=1,\dots,p$ and $H_1:$ at least one $\beta_j \neq 0$ for $j>0$. In our case this is p-value:$<2.2\cdot 10^{-16}$ which gives is so small that the hypothesis is rejected and thus the regression is significant.
+The value of the $R^2 = 0.51$, which is the proportion of variance explained by our model, is also not very good and the reason can be that there are more covariates in the true model that is not considered in our model or/and there is a considerable amount of random noise that makes prediction hard. To conclude, this is not an amazing model, the dependencies between the covariates can be reduced by reducing the number of considered covariates, but it also seem likely that there are some covariates in the true model that is not explained by our model. It is also important to say that the regression is significant, so the model is very clearly useful to some degree. We find the probability that all covariates in the true model is zero in the p-value for the F-statistic in the summary. The null hypothesis $H_0: \beta_j = 0,$ for all $j=1,\dots,p$ and $H_1:$ at least one $\beta_j \neq 0$ for $j>0$. In our case this is p-value:$<2.2\cdot 10^{-16}$ which is so small that the hypothesis is rejected and thus the regression is significant.
 
 
-**c)** When we fit a model we does not really know how and if the covariates really affect the response variable or of it is just random noise. A model can by accident emphasize random noise and in therby predict on the wrong premises. In those cases the model would predict more accurately when such covariates are discarded. Also if the covariates are dependent the preformance could be equally good if the remaining covariates compansate for the discarded covariate. This reduced model would also in that case be better with fewer covariates because of lower complexity and thus variance.
+**c)** When we fit a model we do not really know how and if the covariates really affect the response variable or if it is just random noise. A model can by accident emphasize random noise and therby predict on the wrong premises. In those cases the model would predict more accurately when such covariates are discarded. Also if the covariates are dependent the preformance could be equally good if the remaining covariates compansate for the discarded covariate. This reduced model would also in that case be better with fewer covariates because of lower complexity and thus variance.
 
 The method of best subset selection is a way of reducing a model in a suitable way. The method tries all combinations of all numbers of covariates and fits a model based on those covariates. Afterwards it chooses the best model based on some criterion which emphasizes small residuals and few covariates.  
 
-One of the criteria is the adjusted $$R^2 = R^{2}_{\text{adj}} = 1 - \frac{\text{SSE}/(n-p)}{\text{SST}/(n-1)},$$ where SSE is the error sum of squares, SST is the total variation around the mean value, n is the number of observations and p is the number of covariates in the model. The $R^{2}_{\text{adj}}$ shows the amount of variation explained by the model as the $R^2$ does, at the same time as it penalizes models with large values of $p$. The best choice explains a large amount of the variance and has a low value of p, which means a large value of $R^{2}_{\text{adj}}$.  
+One of the criteria is the adjusted $R^2$, $$R^2 = R^{2}_{\text{adj}} = 1 - \frac{\text{SSE}/(n-p)}{\text{SST}/(n-1)},$$ where SSE is the error sum of squares, SST is the total variation around the mean value, n is the number of observations and p is the number of covariates in the model. The $R^{2}_{\text{adj}}$ shows the amount of variation explained by the model as the $R^2$ does, at the same time as it penalizes models with large values of $p$. The best choice explains a large amount of the variance and has a low value of p, which means a large value of $R^{2}_{\text{adj}}$.  
 
 The Bayesian information criterion (BIC) is another approach of choosing the best subset. $$\text{BIC} = \frac{\text{SSE}/n}{\hat{\sigma^2}}+ln(n)\frac{p}{n},$$ where again SSE is the error sum of squares, n is the number of observations, p is the number of covariates and $\hat{\sigma^2}$ is the estimated variance for the model. The value of BIC grows with large SSE and large p, which means that we want to minimize the function to find best subset of covariates. The Bayesian information criterion penlaizes the number of covariates $p$ more than the $R^2_{\text{adj}}$ because the term $\frac{\ln(n)}{n}$ is a very large coefficient.
 
-The 10 models presented in figure 3 shows which covariates that best explains the variation in the response for different numbers of total covariates. When we want a model with 1 covariate we choose $bmi$ and so on up to the last model where all covariates are considered.
+The 10 models presented in figure 3 shows which covariates that best explains the variation in the response for different numbers of covariates. They where found by trying out all the combinations of covariates for $p=1 \dots 10$ and choosing the model with lowest $SSE$. E.g. for $p=1$ the covariate $bmi$ is chosen as the best model.
 
-When choosing the best model we want a low value of BIC and a high value of $R^2_{adj}$ as said earlier. In Figure 4 the values for BIC and $R^2_{adj}$ are presented in a graph for all 10 models, and in Figure 3 the best model is found directly by finding the model with minimal BIC and maximal $R^2_{adj}$. Because the penalization for the number of covariates for BIC are greater than for $R^2_{adj}$ the two criterias result in two different models. If we optimize BIC we choose $p=5$, but for $R^2_{adj}$ we choose $p=8$. We therefore consider the graph in Figure 4 to choose the model we want and we see that in the BIC graph $p=5$ and $p=6$ are almost as good and the $R^2_{adj}$ does also not improve much between $p=6$ and $p=8$.
+When choosing the best model we want a low value of BIC and a high value of $R^2_{adj}$ as said earlier. In Figure 4 the values for BIC and $R^2_{adj}$ are presented in a graph for all 10 models, and in Figure 3 the best model is found directly by finding the model with minimal BIC and maximal $R^2_{adj}$. Because the penalization for the number of covariates for BIC are greater than for $R^2_{adj}$ the two criterias result in two different models. If we optimize BIC we choose $p=5$, but for $R^2_{adj}$ we choose $p=8$. We therefore consider the graph in Figure 4 to choose the model we want and we see that in the BIC graph $p=5$ and $p=6$ are almost as good, and the $R^2_{adj}$ does also not improve much between $p=6$ and $p=8$. Therefor we can conclude that $p=6$ is a good choice. 
 
 The resulting model is thus $$Y \sim \beta_0 + \beta_{sex}\cdot x_2 + \beta_{bmi}\cdot x_3 + \beta_{map}\cdot x_4 + \beta_{tc}\cdot x_5 + \beta_{ldl}\cdot x_6 + \beta_{ltg}\cdot x_9.$$
 ```{r, echo=TRUE, eval=TRUE}
@@ -70,11 +70,11 @@ summary(full)
 summary(red)
 ```
 
-We see that the $\frac{\text{Std.Error}}{\text{Estimate}}$ is much smaller in the reduced model which means that the estimates does not have as high variance. Our explainaition for that is that because some of the dependecy is gone and it is thus clearer what the values for the $\beta$s should be. An expected consequence of reducing a model is that the values for the esimates changes. For instance since $tch$ is not considered anymore the value of $ltg$ and $ldl$ has increased because as we saw earlier those variables are positively dependent. We can see from the pair-plot that $glu$ is positively dependent of $ltg$ and $bmi$ and would thus lead to an increase in those estimates. To summarize we can see that all the covariates increased a little since $age$ was the only covariate that influenced the response in a negative way which were discarded and $age$ did not contribute very much in the full model anyway. The Intercept increased a little to compansate for a flatter model and the Std. Error decreased.
+We see that the $\frac{\text{Std.Error}}{\text{Estimate}}$ is much smaller in the reduced model which means that the estimates does not have as high variance. Our explainaition for that is that because some of the dependecy is gone and it is thus clearer what the values for the $\beta$s should be. An expected consequence of reducing a model is that the values for the esimates change. For instance since $tch$ is not considered anymore the value of $ltg$ and $ldl$ has increased because as we saw earlier those variables are positively dependent. We can see from the pair-plot that $glu$ is positively dependent of $ltg$ and $bmi$ and would thus lead to an increase in those estimates. To summarize we can see that all the covariates increased a little since $age$ was the only negative covariate which were discarded and $age$ did not contribute very much in the full model anyway. The intercept increased a little to compansate for a flatter model and the Std. Error decreased.
 
-**d)** We are now considering the model $$Y \sim \beta_0 + \beta_{sex}\cdot x_2 + \beta_{bmi}\cdot x_3 + \beta_{map}\cdot x_4 + \beta_{ldl}\cdot x_6 + \beta_{ltg}\cdot x_9.$$, that is $\beta_{age}=\beta_{tc}=\beta_{ldl}=\beta_{tch} = \beta_{glu} = 0$ and want to investigate whether the reduced model is preferable.
+**d)** We are now considering the model $$Y \sim \beta_0 + \beta_{sex}\cdot x_2 + \beta_{bmi}\cdot x_3 + \beta_{map}\cdot x_4 + \beta_{hdl}\cdot x_7 + \beta_{ltg}\cdot x_9,$$ that is $\beta_{age}=\beta_{tc}=\beta_{ldl}=\beta_{tch} = \beta_{glu} = 0$ and want to investigate whether the reduced model is preferable.
 $$H_0\text{: }\beta_{age}=\beta_{tc}=\beta_{ldl}=\beta_{tch} = \beta_{glu} = 0$$
-$$H_1\text{: at least one}\neq0$$
+$$H_1\text{: at least one of these}\neq0$$
 To preform this hypothesis test, we set up the corresponding C-matrix such that $\text{C}\boldsymbol{\beta} = \mathbf{d}=[0\,0\, 0\, 0\, 0]^{\text{T}}$.
 
 ```{r, echo=FALSE, eval=TRUE}
@@ -86,7 +86,7 @@ C
 
 Because we know that $\hat{\beta} \sim \mathcal{N}(\boldsymbol{\beta}, \sigma^2(\text{X}^\text{T}\text{X})^{-1})$, $\text{C}\hat{\beta} \sim \mathcal{N}(\text{C}\boldsymbol{\beta}, \sigma^2\text{C}(\text{X}^\text{T}\text{X})^{-1}\text{C}^{\text{T}})$. We then use the Mahalonobis transform to find a standardized normally distributed variable based on $\text{C}\boldsymbol{\hat{\beta}}$. 
 $$(\sigma^2\text{C}(\text{X}^\text{T}\text{X})^{-1}\text{C}^{\text{T}}))^{-\frac{1}{2}}(\text{C}\boldsymbol{\hat{\beta}}-\text{C}\boldsymbol{\beta})\sim \mathcal{N}(\mathbf{0},\, \text{I}),$$ and thus we get a $\chi^2$ distributed variable 
-$$\frac{(\text{C}\boldsymbol{\hat{\beta}}-\mathbf{d})^{\text{T}}(\text{C}(\text{X}^\text{T}\text{X})^{-1}\text{C}^{\text{T}})^{-1}(\text{C}\boldsymbol{\hat{\beta}}-\mathbf{d})}{\sigma^2}\sim \chi^2_{r}$$, where $r$ is the number of covariates that is tested for being equal to zero, that is $r=5$ in our case. Even though the true variance is unknown we know the distribution of $\frac{\text{SSE}}{\sigma^2} \sim \chi^2_{n-p}$. Since we know that $\frac{U_1/d_1}{U_2/d_2}$ is ficher distributed if $U_1, U_2 \sim \chi^2$ and independent we can conclude that $$\frac{(\text{C}\boldsymbol{\hat{\beta}}-\mathbf{d})^{\text{T}}(\text{C}(\text{X}^\text{T}\text{X})^{-1}\text{C}^{\text{T}})^{-1}(\text{C}\boldsymbol{\hat{\beta}}-\mathbf{d})/(\sigma^2 r)}{\text{SSE}/(\sigma^2(n-p))} = \frac{(\text{C}\boldsymbol{\hat{\beta}}-\mathbf{d})^{\text{T}}(\text{C}(\text{X}^\text{T}\text{X})^{-1}\text{C}^{\text{T}})^{-1}(\text{C}\boldsymbol{\hat{\beta}}-\mathbf{d})/r}{\text{SSE}/(n-p)} \sim \mathcal{F}_{r, n-p}$$ because SSE is independent of $\boldsymbol{\hat{\beta}}$. We reject $H_0$ and when 
+$$\frac{(\text{C}\boldsymbol{\hat{\beta}}-\mathbf{d})^{\text{T}}(\text{C}(\text{X}^\text{T}\text{X})^{-1}\text{C}^{\text{T}})^{-1}(\text{C}\boldsymbol{\hat{\beta}}-\mathbf{d})}{\sigma^2}\sim \chi^2_{r},$$ where $r$ is the number of covariates that is tested for being equal to zero, that is $r=5$ in our case. Even though the true variance is unknown we know the distribution of $\frac{\text{SSE}}{\sigma^2} \sim \chi^2_{n-p}$. Since we know that $\frac{U_1/d_1}{U_2/d_2}$ is ficher distributed if $U_1, U_2 \sim \chi^2$ and independent we can conclude that $$\frac{(\text{C}\boldsymbol{\hat{\beta}}-\mathbf{d})^{\text{T}}(\text{C}(\text{X}^\text{T}\text{X})^{-1}\text{C}^{\text{T}})^{-1}(\text{C}\boldsymbol{\hat{\beta}}-\mathbf{d})/(\sigma^2 r)}{\text{SSE}/(\sigma^2(n-p))} = \frac{(\text{C}\boldsymbol{\hat{\beta}}-\mathbf{d})^{\text{T}}(\text{C}(\text{X}^\text{T}\text{X})^{-1}\text{C}^{\text{T}})^{-1}(\text{C}\boldsymbol{\hat{\beta}}-\mathbf{d})/r}{\text{SSE}/(n-p)} \sim \mathcal{F}_{r, n-p}$$ because SSE is independent of $\boldsymbol{\hat{\beta}}$. We reject $H_0$ for large values of $\mathcal{F}$. 
 
 ```{r, echo=T, eval=T}
 
@@ -106,17 +106,15 @@ d = cbind(c(0,0,0,0,0))
 xinv = solve(t(x)%*%x)
 
 cxcinv = solve(C%*%xinv%*%t(C))
-print(length(cxcinv))
 
 Fstat = (t(cb-d)%*%cxcinv%*%(cb-d)/5)/(sse/(n-5))
 Fstat
 pval <- pf(Fstat, 5, n-5, ncp=T, lower.tail = F, log.p = FALSE)[1]
-#pval <- df(Fstat, 5, n-5)
 
 cat("The p-value for the hypothesis test for the reduced model: p = ", pval)
 
 ```
-
+Thus we cannot discard $H_0$ which means that the all the tested $\beta$s could be zero. 
 
 ### Problem 2
 
